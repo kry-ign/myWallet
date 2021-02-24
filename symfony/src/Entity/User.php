@@ -1,121 +1,166 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Entity;
 
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="`user`")
+ */
 class User implements UserInterface
 {
     /**
-     * @var int
-     * @ORM\GeneratedValue()
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private $id;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=20, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private string $username;
+    private $username;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private string $password;
+    private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=20)
      */
-    private string $email;
+    private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="users")
      */
-    private array $roles = [];
+    private $ProductID;
 
-    /**
-     * @return int
-     */
-    public function getId(): int
+    public function __construct()
+    {
+        $this->ProductID = new ArrayCollection();
+    }
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    public function setId(int $id): void
+    public function getUsername(): string
     {
-        $this->id = $id;
+        return (string) $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * @see UserInterface
      */
-    public function getEmail(): string
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     */
-    public function setEmail(string $email): void
+    public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
-     * @param string $password
+     * @return Collection|Product[]
      */
-    public function setPassword(string $password): void
+    public function getProductID(): Collection
     {
-        $this->password = $password;
+        return $this->ProductID;
     }
 
-    /**
-     * @param array $roles
-     */
-    public function setRoles(array $roles): void
+    public function addProductID(Product $productID): self
     {
-        $this->roles = $roles;
+        if (!$this->ProductID->contains($productID)) {
+            $this->ProductID[] = $productID;
+        }
+
+        return $this;
     }
 
-    /**
-     * @param string $username
-     */
-    public function setUsername(string $username): void
+    public function removeProductID(Product $productID): self
     {
-        $this->username = $username;
-    }
+        $this->ProductID->removeElement($productID);
 
-    public function getRoles()
-    {
-        // TODO: Implement getRoles() method.
-    }
-
-    public function getPassword()
-    {
-        // TODO: Implement getPassword() method.
-    }
-
-    public function getSalt()
-    {
-        // TODO: Implement getSalt() method.
-    }
-
-    public function getUsername()
-    {
-        // TODO: Implement getUsername() method.
-    }
-
-    public function eraseCredentials()
-    {
-        // TODO: Implement eraseCredentials() method.
+        return $this;
     }
 }

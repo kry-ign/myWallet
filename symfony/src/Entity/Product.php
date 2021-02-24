@@ -1,101 +1,148 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Entity;
 
+use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity(repositoryClass=ProductRepository::class)
+ */
 class Product
 {
     /**
-     * @var int
-     * @ORM\GeneratedValue()
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private int $productId;
+    private $id;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=15)
      */
-    private string $productCategory;
+    private $ProductName;
 
     /**
-     * @var float
+     * @ORM\Column(type="string", length=255)
+     */
+    private $CategryID;
+
+    /**
      * @ORM\Column(type="float")
      */
-    private float $productValue;
+    private $Price;
 
     /**
-     * @var string
-     * @ORM\Column(type="datetime")
+     * @ORM\OneToOne(targetEntity=Category::class, inversedBy="product", cascade={"persist", "remove"})
      */
-    private string $dateAdded;
+    private $CategoryID;
 
     /**
-     * @return int
+     * @ORM\Column(type="integer")
      */
-    public function getProductId(): int
+    private $UserID;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="ProductID")
+     */
+    private $users;
+
+    public function __construct()
     {
-        return $this->productId;
+        $this->users = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getProductName(): ?string
+    {
+        return $this->ProductName;
+    }
+
+    public function setProductName(string $ProductName): self
+    {
+        $this->ProductName = $ProductName;
+
+        return $this;
+    }
+
+    public function getCategryID(): ?string
+    {
+        return $this->CategryID;
+    }
+
+    public function setCategryID(string $CategryID): self
+    {
+        $this->CategryID = $CategryID;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->Price;
+    }
+
+    public function setPrice(float $Price): self
+    {
+        $this->Price = $Price;
+
+        return $this;
+    }
+
+    public function getCategoryID(): ?Category
+    {
+        return $this->CategoryID;
+    }
+
+    public function setCategoryID(?Category $CategoryID): self
+    {
+        $this->CategoryID = $CategoryID;
+
+        return $this;
+    }
+
+    public function getUserID(): ?int
+    {
+        return $this->UserID;
+    }
+
+    public function setUserID(int $UserID): self
+    {
+        $this->UserID = $UserID;
+
+        return $this;
     }
 
     /**
-     * @param int $productId
+     * @return Collection|User[]
      */
-    public function setProductId(int $productId): void
+    public function getUsers(): Collection
     {
-        $this->productId = $productId;
+        return $this->users;
     }
 
-    /**
-     * @return string
-     */
-    public function getProductCategory(): string
+    public function addUser(User $user): self
     {
-        return $this->productCategory;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addProductID($this);
+        }
+
+        return $this;
     }
 
-    /**
-     * @param string $productCategory
-     */
-    public function setProductCategory(string $productCategory): void
+    public function removeUser(User $user): self
     {
-        $this->productCategory = $productCategory;
+        if ($this->users->removeElement($user)) {
+            $user->removeProductID($this);
+        }
+
+        return $this;
     }
-
-    /**
-     * @return float
-     */
-    public function getProductValue(): float
-    {
-        return $this->productValue;
-    }
-
-    /**
-     * @param float $productValue
-     */
-    public function setProductValue(float $productValue): void
-    {
-        $this->productValue = $productValue;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDateAdded(): string
-    {
-        return $this->dateAdded;
-    }
-
-    /**
-     * @param string $dateAdded
-     */
-    public function setDateAdded(string $dateAdded): void
-    {
-        $this->dateAdded = $dateAdded;
-    }
-
-
 }
