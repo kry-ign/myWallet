@@ -20,43 +20,42 @@ class Budget
     /**
      * @ORM\Column(type="float")
      */
-    private $budget;
+    private $value;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="budgets")
      */
-    private $userid;
+    private $user;
 
     /**
      * @ORM\Column(type="date")
      */
     private $month;
 
+    public function __construct(
+        float $value,
+        User $user,
+        \DateTime $dateTime
+    )
+    {
+        $this->value = $value;
+        $this->user = $user;
+        $this->month = $dateTime;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getBudget(): ?float
+    public function getValue(): ?float
     {
-        return $this->budget;
+        return $this->value;
     }
 
-    public function setBudget(float $budget): self
+    public function setValue(float $budgetValue): self
     {
-        $this->budget = $budget;
-
-        return $this;
-    }
-
-    public function getUserid(): ?int
-    {
-        return $this->userid;
-    }
-
-    public function setUserid(int $userid): self
-    {
-        $this->userid = $userid;
+        $this->value = $budgetValue;
 
         return $this;
     }
@@ -69,6 +68,18 @@ class Budget
     public function setMonth(\DateTimeInterface $month): self
     {
         $this->month = $month;
+
+        return $this;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

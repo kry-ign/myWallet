@@ -107,7 +107,5 @@
       <path value="$PROJECT_DIR$/symfony/vendor/doctrine/doctrine-fixtures-bundle" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.2">
-    <option name="suggestChangeDefaultLanguageLevel" value="false" />
-  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
 </project>

@@ -25,20 +25,14 @@ class Product
     private $ProductName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
      */
-    private $CategoryID;
+    private $category;
 
     /**
      * @ORM\Column(type="float")
      */
     private $Price;
-
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $UserID;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="ProductID")
@@ -67,16 +61,14 @@ class Product
         return $this;
     }
 
-    public function getCategryID(): ?string
+    public function getCategory(): ?Category
     {
-        return $this->CategoryID;
+        return $this->category;
     }
 
-    public function setCategryID(string $CategryID): self
+    public function setCategory(Category $category): void
     {
-        $this->CategoryID = $CategryID;
-
-        return $this;
+        $this->category = $category;
     }
 
     public function getPrice(): ?float
@@ -87,30 +79,6 @@ class Product
     public function setPrice(float $Price): self
     {
         $this->Price = $Price;
-
-        return $this;
-    }
-
-    public function getCategoryID(): ?Category
-    {
-        return $this->CategoryID;
-    }
-
-    public function setCategoryID(?Category $CategoryID): self
-    {
-        $this->CategoryID = $CategoryID;
-
-        return $this;
-    }
-
-    public function getUserID(): ?int
-    {
-        return $this->UserID;
-    }
-
-    public function setUserID(int $UserID): self
-    {
-        $this->UserID = $UserID;
 
         return $this;
     }

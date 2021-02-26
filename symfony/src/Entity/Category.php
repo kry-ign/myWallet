@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,9 +29,15 @@ class Category
     private $Description;
 
     /**
-     * @ORM\OneToOne(targetEntity=Product::class, mappedBy="CategoryID", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category", cascade={"persist", "remove"})
      */
-    private $product;
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -61,25 +68,18 @@ class Category
         return $this;
     }
 
-    public function getProduct(): ?Product
+    public function getProducts(): ArrayCollection
     {
-        return $this->product;
+        return $this->products;
     }
 
-    public function setProduct(?Product $product): self
+    public function setProducts(ArrayCollection $products): void
     {
-        // unset the owning side of the relation if necessary
-        if ($product === null && $this->product !== null) {
-            $this->product->setCategoryID(null);
-        }
+        $this->products = $products;
+    }
 
-        // set the owning side of the relation if necessary
-        if ($product !== null && $product->getCategoryID() !== $this) {
-            $product->setCategoryID($this);
-        }
-
-        $this->product = $product;
-
-        return $this;
+    public function addProduct(Product $product): void
+    {
+        $this->products[] = $product;
     }
 }

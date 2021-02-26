@@ -47,9 +47,15 @@ class User implements UserInterface
      */
     private $ProductID;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Budget::class, mappedBy="budget", cascade={"persist", "remove"})
+     */
+    private $budgets;
+
     public function __construct()
     {
         $this->ProductID = new ArrayCollection();
+        $this->budgets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -162,5 +168,20 @@ class User implements UserInterface
         $this->ProductID->removeElement($productID);
 
         return $this;
+    }
+
+    public function getBudgets()
+    {
+        return $this->budgets;
+    }
+
+    public function setBudgets(ArrayCollection $budgets): void
+    {
+        $this->budgets = $budgets;
+    }
+
+    public function addProduct(Budget $budget): void
+    {
+        $this->budgets[] = $budget;
     }
 }
