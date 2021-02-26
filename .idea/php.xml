@@ -103,6 +103,8 @@
       <path value="$PROJECT_DIR$/symfony/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/symfony/vendor/symfony/property-info" />
       <path value="$PROJECT_DIR$/symfony/vendor/symfony/cache-contracts" />
+      <path value="$PROJECT_DIR$/symfony/vendor/doctrine/data-fixtures" />
+      <path value="$PROJECT_DIR$/symfony/vendor/doctrine/doctrine-fixtures-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2">
