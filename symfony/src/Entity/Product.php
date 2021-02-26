@@ -27,17 +27,13 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $CategryID;
+    private $CategoryID;
 
     /**
      * @ORM\Column(type="float")
      */
     private $Price;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Category::class, inversedBy="product", cascade={"persist", "remove"})
-     */
-    private $CategoryID;
 
     /**
      * @ORM\Column(type="integer")
@@ -73,12 +69,12 @@ class Product
 
     public function getCategryID(): ?string
     {
-        return $this->CategryID;
+        return $this->CategoryID;
     }
 
     public function setCategryID(string $CategryID): self
     {
-        $this->CategryID = $CategryID;
+        $this->CategoryID = $CategryID;
 
         return $this;
     }
