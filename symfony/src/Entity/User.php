@@ -45,7 +45,7 @@ class User implements UserInterface
     /**
      * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="users")
      */
-    private $ProductID;
+    private $productID;
 
     /**
      * @ORM\OneToMany(targetEntity=Budget::class, mappedBy="budget", cascade={"persist", "remove"})
@@ -54,7 +54,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->ProductID = new ArrayCollection();
+        $this->productID = new ArrayCollection();
         $this->budgets = new ArrayCollection();
     }
 
@@ -151,13 +151,13 @@ class User implements UserInterface
      */
     public function getProductID(): Collection
     {
-        return $this->ProductID;
+        return $this->productID;
     }
 
     public function addProductID(Product $productID): self
     {
-        if (!$this->ProductID->contains($productID)) {
-            $this->ProductID[] = $productID;
+        if (!$this->productID->contains($productID)) {
+            $this->productID[] = $productID;
         }
 
         return $this;
@@ -165,7 +165,7 @@ class User implements UserInterface
 
     public function removeProductID(Product $productID): self
     {
-        $this->ProductID->removeElement($productID);
+        $this->productID->removeElement($productID);
 
         return $this;
     }

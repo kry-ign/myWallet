@@ -34,11 +34,11 @@ class IndexController extends AbstractController
     public function index(Request $request): Response
     {
         $this->objectManager = $this->getDoctrine()->getManager();
-//        $entity = new Budget(
-//            22,
-//            $this->getUser(),
-//            new \DateTime('now')
-//        );
+        $entity = new Budget(
+            22,
+            $this->getUser(),
+            new \DateTime('now')
+        );
 
         $productRepository = $this->objectManager->getRepository(Product::class);
 
@@ -53,13 +53,13 @@ class IndexController extends AbstractController
         $newCategory->setProducts(new ArrayCollection([$wynik]));
 
 
+//
+//        $this->objectManager->persist($newCategory);
+//        $this->objectManager->flush();
 
-        $this->objectManager->persist($newCategory);
-        $this->objectManager->flush();
-
-        dd('exi2s');
-
-        dd('exis');
+//        dd('exi2s');
+//
+//        dd('exis');
         $form = $this->createForm(NewProductAddType::class);
 
         $form->handleRequest($request);
@@ -77,8 +77,8 @@ class IndexController extends AbstractController
                 $entityProduct->addUser($this->getUser());
 //                $entityProduct->setCategoryID($this->getUser());
 
-                $em->persist($entityProduct);
-                $em->flush();
+                $this->objectManager->persist($entityProduct);
+                $this->objectManager->flush();
             }
         }
 
