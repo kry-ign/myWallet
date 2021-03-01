@@ -22,7 +22,7 @@ class Product
     /**
      * @ORM\Column(type="string", length=15)
      */
-    private $ProductName;
+    private $productName;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
@@ -32,7 +32,7 @@ class Product
     /**
      * @ORM\Column(type="float")
      */
-    private $Price;
+    private $price;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="ProductID")
@@ -51,12 +51,12 @@ class Product
 
     public function getProductName(): ?string
     {
-        return $this->ProductName;
+        return $this->productName;
     }
 
-    public function setProductName(string $ProductName): self
+    public function setProductName(string $productName): self
     {
-        $this->ProductName = $ProductName;
+        $this->productName = $productName;
 
         return $this;
     }
@@ -73,12 +73,12 @@ class Product
 
     public function getPrice(): ?float
     {
-        return $this->Price;
+        return $this->price;
     }
 
-    public function setPrice(float $Price): self
+    public function setPrice(float $price): self
     {
-        $this->Price = $Price;
+        $this->price = $price;
 
         return $this;
     }
