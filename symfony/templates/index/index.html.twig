@@ -3,8 +3,18 @@
 {% block title %}{{ parent() }} - Home{% endblock %}
 
 {% block content %}
+    <div class="container">
+        <div>
+            <h1>Add you Budget</h1>
+            {{ form(formBudget) }}
+        </div>
+        <div>
+            <h1>Add new product !</h1>
+            {{ form(form) }}
+        </div>
+
+    </div>
 
 
-    {{ form(form) }}
 
 {% endblock %}

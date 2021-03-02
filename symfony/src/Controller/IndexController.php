@@ -8,6 +8,7 @@ use App\Entity\Budget;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\User;
+use App\Form\NewBudgetType;
 use App\Form\NewProductAddType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
@@ -33,24 +34,24 @@ class IndexController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $this->objectManager = $this->getDoctrine()->getManager();
-        $entity = new Budget(
-            22,
-            $this->getUser(),
-            new \DateTime('now')
-        );
-
-        $productRepository = $this->objectManager->getRepository(Product::class);
-
-
-        $wynik = $productRepository->find(1);
-
-
-        $newCategory = new Category();
-
-        $newCategory->setCategoryName('nowa2 ');
-        $newCategory->setDescription('opis2');
-        $newCategory->setProducts(new ArrayCollection([$wynik]));
+//        $this->objectManager = $this->getDoctrine()->getManager();
+//        $entity = new Budget(
+//            22,
+//            $this->getUser(),
+//            new \DateTime('now')
+//        );
+//
+//        $productRepository = $this->objectManager->getRepository(Product::class);
+//
+//
+//        $wynik = $productRepository->find(1);
+//
+//
+//        $newCategory = new Category();
+//
+//        $newCategory->setCategoryName('nowa2 ');
+//        $newCategory->setDescription('opis2');
+//        $newCategory->setProducts(new ArrayCollection([$wynik]));
 
 
 //
@@ -60,7 +61,28 @@ class IndexController extends AbstractController
 //        dd('exi2s');
 //
 //        dd('exis');
+        $formBudget = $this->createForm(NewBudgetType::class);
+
+        $formBudget->handleRequest($request);
+
+
         $form = $this->createForm(NewProductAddType::class);
+        if ($form->isSubmitted()) {
+//            dd($this->getUser());
+
+            $this->objectManager = $this->getDoctrine()->getManager();
+//            dd($form->get('category')->getData());
+
+            if ($this->getUser()) {
+            $budget = new Budget();
+            $budget->setValue($formBudget->get('value')->getData());
+            $budget->setMonth(new \DateTime('now'));
+            $budget->addUser($this->getUser());
+
+            $this->objectManager->persist($budget);
+            $this->objectManager->flush();
+            }
+        }
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -84,6 +106,7 @@ class IndexController extends AbstractController
 
         return $this->render('index/index.html.twig', [
             'form' => $form->createView(),
+            'formBudget' => $formBudget->createView(),
 
         ]);
     }

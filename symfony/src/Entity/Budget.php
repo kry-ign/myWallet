@@ -33,14 +33,14 @@ class Budget
     private $month;
 
     public function __construct(
-        float $value,
-        User $user,
-        \DateTime $dateTime
+//        float $value,
+//        User $user,
+//        \DateTime $dateTime
     )
     {
-        $this->value = $value;
-        $this->user = $user;
-        $this->month = $dateTime;
+//        $this->value = $value;
+//        $this->user = $user;
+//        $this->month = $dateTime;
     }
 
     public function getId(): ?int
