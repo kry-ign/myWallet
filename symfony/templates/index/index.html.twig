@@ -4,9 +4,34 @@
 
 {% block content %}
     <div class="container">
+
+        <div>
+            {% for key in product %}
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Budget</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{key.productName}}</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                </tbody>
+            </table>
+{#            <h2>Budget: {{key.value}}</h2></td><td>#}
+            {% endfor %}
+        </div>
         <div>
             <h1>Add you Budget</h1>
-            {{ form(formBudget) }}
+{#            {{ form(formBudget) }}#}
         </div>
         <div>
             <h1>Add new product !</h1>

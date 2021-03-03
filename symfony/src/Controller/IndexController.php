@@ -61,28 +61,36 @@ class IndexController extends AbstractController
 //        dd('exi2s');
 //
 //        dd('exis');
-        $formBudget = $this->createForm(NewBudgetType::class);
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findAll();
 
-        $formBudget->handleRequest($request);
+        $budget = $this->getDoctrine()
+            ->getRepository(Budget::class)
+            ->findAll();
 
-
+//        $formBudget = $this->createForm(NewBudgetType::class);
+//
+//        $formBudget->handleRequest($request);
+//
+//
         $form = $this->createForm(NewProductAddType::class);
-        if ($form->isSubmitted()) {
-//            dd($this->getUser());
-
-            $this->objectManager = $this->getDoctrine()->getManager();
-//            dd($form->get('category')->getData());
-
-            if ($this->getUser()) {
-            $budget = new Budget();
-            $budget->setValue($formBudget->get('value')->getData());
-            $budget->setMonth(new \DateTime('now'));
-            $budget->addUser($this->getUser());
-
-            $this->objectManager->persist($budget);
-            $this->objectManager->flush();
-            }
-        }
+//        if ($form->isSubmitted()) {
+////            dd($this->getUser());
+//
+//            $this->objectManager = $this->getDoctrine()->getManager();
+////            dd($form->get('category')->getData());
+//
+//            if ($this->getUser()) {
+//            $budget = new Budget();
+//            $budget->setValue($formBudget->get('value')->getData());
+//            $budget->setMonth(new \DateTime('now'));
+//            $budget->addUser($this->getUser());
+//
+//            $this->objectManager->persist($budget);
+//            $this->objectManager->flush();
+//            }
+//        }
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -106,7 +114,9 @@ class IndexController extends AbstractController
 
         return $this->render('index/index.html.twig', [
             'form' => $form->createView(),
-            'formBudget' => $formBudget->createView(),
+//            'formBudget' => $formBudget->createView(),
+            'budget' => $budget,
+            'product' => $product
 
         ]);
     }
