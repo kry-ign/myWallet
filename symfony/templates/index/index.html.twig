@@ -13,16 +13,16 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Product</th>
-                    <th scope="col">Last</th>
+                    <th scope="col">Price</th>
                     <th scope="col">Budget</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <th scope="row">1</th>
+                    <th>{{key.id}}</th>
                     <td>{{key.productName}}</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td>{{ key.price }}</li></td>
+{#                    <td>{{ product }}</td>#}
                 </tr>
                 </tbody>
             </table>
@@ -31,7 +31,7 @@
         </div>
         <div>
             <h1>Add you Budget</h1>
-{#            {{ form(formBudget) }}#}
+            {{ form(formBudget) }}
         </div>
         <div>
             <h1>Add new product !</h1>
