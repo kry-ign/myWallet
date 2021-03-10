@@ -23,14 +23,14 @@ class Budget
     private $value;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="budgets")
-     */
-    private $user;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $month;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="budgets")
+     */
+    private User $users;
 
     public function __construct(
 //        float $value,
@@ -72,14 +72,14 @@ class Budget
         return $this;
     }
 
-    public function getUser(): User
+    public function getUsers(): User
     {
-        return $this->user;
+        return $this->users;
     }
 
-    public function setUser(User $user): self
+    public function setUsers(User $user): self
     {
-        $this->user = $user;
+        $this->users = $user;
 
         return $this;
     }

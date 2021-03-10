@@ -100,7 +100,7 @@ class IndexController extends AbstractController
             $budget = new Budget();
             $budget->setValue($formBudget->get('value')->getData());
             $budget->setMonth(new \DateTime('now'));
-            $budget->addUser($this->getUser());
+            $budget->setUsers($this->getUser());
 
             $this->objectManager->persist($budget);
             $this->objectManager->flush();

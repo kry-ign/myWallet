@@ -5,41 +5,44 @@
 {% block content %}
     <div class="container">
 
-        <div>
-            {% for key in product %}
+        <div class="row">
+            <div class="col-6 col-md-4">
+                <h1>Add you Budget</h1>
+                {{ form(formBudget) }}
+            </div>
+            <div class="col-12 col-md-8">
+                {% for key in product %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Budget</th>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Budget</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th>{{key.id}}</th>
-                    <td>{{key.productName}}</td>
-                    <td>{{ key.price }}</li></td>
-{#                    <td>{{ product }}</td>#}
-                </tr>
-                </tbody>
-            </table>
-{#            <h2>Budget: {{key.value}}</h2></td><td>#}
-            {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        <tr>
+                            <th>{{key.id}}</th>
+                            <td>{{key.productName}}</td>
+                            <td>{{ key.price }}</li></td>
+                            {#                    <td>{{ product }}</td>#}
+                        </tr>
+                        </tbody>
+                    </table>
+                    {#            <h2>Budget: {{key.value}}</h2></td><td>#}
+                {% endfor %}
+            </div>
+            </div>
+            <div class="w-30"></div>
+            <div class="row">
+                <h1>Add new product !</h1>
+                {{ form(form) }}
+            </div>
+
         </div>
-        <div>
-            <h1>Add you Budget</h1>
-            {{ form(formBudget) }}
-        </div>
-        <div>
-            <h1>Add new product !</h1>
-            {{ form(form) }}
-        </div>
-
-    </div>
-
-
 
 {% endblock %}

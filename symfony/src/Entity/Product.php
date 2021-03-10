@@ -20,7 +20,7 @@ class Product
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=60)
      */
     private $productName;
 
@@ -30,7 +30,7 @@ class Product
     private $category;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
     private $price;
 
