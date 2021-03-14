@@ -109,6 +109,8 @@
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/symfony/cache-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/data-fixtures" />
       <excludeFolder url="file://$MODULE_DIR$/symfony/vendor/doctrine/doctrine-fixtures-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/vendor" />
+      <excludeFolder url="file://$MODULE_DIR$/symfony/var" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

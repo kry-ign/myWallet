@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Home{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Add you Budget</h1>
+        {{ form(budgetForm) }}
+    </div>
+{% endblock %}
