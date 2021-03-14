@@ -14,6 +14,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    public const ROLE_USER = 'ROLE_USER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLES = [
+        self::ROLE_USER,
+        self::ROLE_ADMIN
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -43,18 +50,12 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="users")
-     */
-    private $productID;
-
-    /**
      * @ORM\OneToMany(targetEntity=Budget::class, mappedBy="budget", cascade={"persist", "remove"})
      */
     private $budgets;
 
     public function __construct()
     {
-        $this->productID = new ArrayCollection();
         $this->budgets = new ArrayCollection();
     }
 
@@ -146,31 +147,7 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Product[]
-     */
-    public function getProductID(): Collection
-    {
-        return $this->productID;
-    }
-
-    public function addProductID(Product $productID): self
-    {
-        if (!$this->productID->contains($productID)) {
-            $this->productID[] = $productID;
-        }
-
-        return $this;
-    }
-
-    public function removeProductID(Product $productID): self
-    {
-        $this->productID->removeElement($productID);
-
-        return $this;
-    }
-
-    public function getBudgets()
+    public function getBudgets(): ArrayCollection
     {
         return $this->budgets;
     }
@@ -180,7 +157,7 @@ class User implements UserInterface
         $this->budgets = $budgets;
     }
 
-    public function addProduct(Budget $budget): void
+    public function addBudget(Budget $budget): void
     {
         $this->budgets[] = $budget;
     }

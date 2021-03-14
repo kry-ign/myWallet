@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Budget;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,22 +20,20 @@ class BudgetRepository extends ServiceEntityRepository
         parent::__construct($registry, Budget::class);
     }
 
-    // /**
-    //  * @return Budget[] Returns an array of Budget objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Budget[] Returns an array of Budget objects
+      */
+    public function findAllByUser(User $user): array
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('budget')
+            ->andWhere('budget.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('budget.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Budget

@@ -1,41 +1,17 @@
 <?php
 
-namespace App\Entity;
+declare(strict_types=1);
 
-use App\Repository\BudgetRepository;
-use Doctrine\ORM\Mapping as ORM;
+namespace App\Command;
 
-/**
- * @ORM\Entity(repositoryClass=BudgetRepository::class)
- */
-class Budget
+
+use App\Entity\User;
+
+class CreateBudgetCommand
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private int $id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private int $value;
-
-    /**
-     * @ORM\Column(type="date")
-     */
+    private int $value = 0;
     private \DateTime $month;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="budgets")
-     */
     private User $user;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getValue(): ?int
     {
@@ -61,7 +37,7 @@ class Budget
         return $this;
     }
 
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
