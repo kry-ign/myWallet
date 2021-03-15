@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Command\CreateBudgetCommand;
-use App\Entity\Product;
 use App\Form\BudgetType;
 use App\Service\BudgetService;
 use League\Tactician\CommandBus;
