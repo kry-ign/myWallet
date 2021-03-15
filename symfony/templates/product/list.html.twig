@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Home{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-12 col-md-8">
+            <table class="table">
+                <thead>
+                <a class="nav-link" href="{{ path('budget.add') }}">
+                    <button type="button" class="btn btn-success">Add new budget</button>
+                </a>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Budget</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Left</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                {% for budget in budgets %}
+                    <tbody>
+                    <tr>
+                        <th>{{ budget.id }}</th>
+                        <td>{{ budget.month|date('F') }}</td>
+                        <td>{{ budget.value }}</li></td>
+                        <td>0</td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

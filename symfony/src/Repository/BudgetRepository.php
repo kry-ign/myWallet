@@ -20,9 +20,10 @@ class BudgetRepository extends ServiceEntityRepository
         parent::__construct($registry, Budget::class);
     }
 
-     /**
-      * @return Budget[] Returns an array of Budget objects
-      */
+    /**
+     * @param User $user
+     * @return Budget[] Returns an array of Budget objects
+     */
     public function findAllByUser(User $user): array
     {
         return $this->createQueryBuilder('budget')
