@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,39 +15,46 @@ class Product
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=60)
      */
-    private $productName;
+    private string $productName;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
      */
-    private $category;
+    private Category $category;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $price;
+    private int $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="ProductID")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Budget", inversedBy="products")
      */
-    private $users;
+    private Budget $budget;
 
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
+    public function __construct(
+        string $productName,
+        Category $category,
+        int $price,
+        Budget $budget
+    ) {
+        $this->productName = $productName;
+        $this->category = $category;
+        $this->price = $price;
+        $this->budget = $budget;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getProductName(): ?string
+    public function getProductName(): string
     {
         return $this->productName;
     }
@@ -61,51 +66,38 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getCategory(): Category
     {
         return $this->category;
     }
 
-    public function setCategory(Category $category): void
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
+
+        return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): int
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(int $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
+    public function getBudget(): Budget
     {
-        return $this->users;
+        return $this->budget;
     }
 
-    public function addUser(User $user): self
+    public function setBudget(Budget $budget): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->addProductID($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeProductID($this);
-        }
+        $this->budget = $budget;
 
         return $this;
     }

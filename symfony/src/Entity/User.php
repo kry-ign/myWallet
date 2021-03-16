@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -18,7 +17,7 @@ class User implements UserInterface
     public const ROLE_ADMIN = 'ROLE_ADMIN';
     public const ROLES = [
         self::ROLE_USER,
-        self::ROLE_ADMIN
+        self::ROLE_ADMIN,
     ];
 
     /**
@@ -26,31 +25,31 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $username;
+    private string $username;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $email;
+    private string $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=Budget::class, mappedBy="budget", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Budget::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $budgets;
 

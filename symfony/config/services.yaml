@@ -16,6 +16,26 @@ services:
     arguments:
       - '@tactician.commandbus'
 
-  App\Handler\CreateBudgetHandler:
+  App\Handler\Budget\CreateBudgetHandler:
     tags:
     - { name: tactician.handler, typehints: true }
+
+  App\Handler\Budget\EditBudgetHandler:
+    tags:
+      - { name: tactician.handler, typehints: true }
+
+  App\Handler\Budget\DeleteBudgetHandler:
+    tags:
+      - { name: tactician.handler, typehints: true }
+
+  App\Handler\Product\CreateProductHandler:
+    tags:
+      - { name: tactician.handler, typehints: true }
+
+  App\Handler\Product\EditProductHandler:
+    tags:
+      - { name: tactician.handler, typehints: true }
+
+  App\Handler\Product\DeleteProductHandler:
+    tags:
+      - { name: tactician.handler, typehints: true }

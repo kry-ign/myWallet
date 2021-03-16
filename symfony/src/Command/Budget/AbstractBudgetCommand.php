@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Command;
+namespace App\Command\Budget;
 
 use App\Entity\User;
 
-class CreateBudgetCommand
+class AbstractBudgetCommand implements BudgetCommandInterface
 {
     private int $value = 0;
     private \DateTime $month;
@@ -24,12 +24,12 @@ class CreateBudgetCommand
         return $this;
     }
 
-    public function getMonth(): ?\DateTimeInterface
+    public function getMonth(): ?\DateTime
     {
         return $this->month;
     }
 
-    public function setMonth(\DateTimeInterface $month): self
+    public function setMonth(\DateTime $month): self
     {
         $this->month = $month;
 

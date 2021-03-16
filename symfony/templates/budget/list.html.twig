@@ -7,14 +7,15 @@
         <div class="col-12 col-md-8">
             <table class="table">
                 <thead>
-                <a class="nav-link" href="{{ path('budget.add') }}">
-                    <button type="button" class="btn btn-success">Add new budget</button>
+                <a class="nav-link" href="{{ path('budget.create') }}">
+                    <button type="button" class="btn btn-success">Create new budget</button>
                 </a>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Budget</th>
                     <th scope="col">Value</th>
                     <th scope="col">Left</th>
+                    <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -25,9 +26,22 @@
                         <th>{{ budget.id }}</th>
                         <td>{{ budget.month|date('F') }}</td>
                         <td>{{ budget.value }}</li></td>
-                        <td>0</td>
-                        <td><button type="button" class="btn btn-primary">Edit</button></td>
-                        <td><button type="button" class="btn btn-danger">Delete</button></td>
+                        <td>{{ budget.leftValue }}</li></td>
+                        <td>
+                            <a href="{{ path('budget.view',{'budgetId': budget.id}) }}">
+                                <button type="button" class="btn btn-secondary">View</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('budget.edit',{'budgetId': budget.id}) }}">
+                                <button type="button" class="btn btn-primary">Edit</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('budget.delete',{'budgetId': budget.id}) }}">
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </a>
+                        </td>
                     </tr>
                     </tbody>
                 {% endfor %}

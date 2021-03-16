@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BudgetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,12 +33,28 @@ class Budget
      */
     private User $user;
 
-    public function getId(): ?int
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="budget", cascade={"persist", "remove"})
+     */
+    private $products;
+
+    public function __construct(
+        int $value,
+        \DateTime $month,
+        User $user
+    ) {
+        $this->value = $value;
+        $this->month = $month;
+        $this->user = $user;
+        $this->products = new ArrayCollection();
+    }
+
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getValue(): ?int
+    public function getValue(): int
     {
         return $this->value;
     }
@@ -49,12 +66,12 @@ class Budget
         return $this;
     }
 
-    public function getMonth(): ?\DateTimeInterface
+    public function getMonth(): \DateTime
     {
         return $this->month;
     }
 
-    public function setMonth(\DateTimeInterface $month): self
+    public function setMonth(\DateTime $month): self
     {
         $this->month = $month;
 
@@ -69,6 +86,36 @@ class Budget
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getLeftValue(): int
+    {
+        $cost = 0;
+
+        foreach ($this->products as $product) {
+            $cost += $product->getPrice();
+        }
+
+        return $this->value - $cost;
+    }
+
+    public function getProducts(): ArrayCollection
+    {
+        return $this->products;
+    }
+
+    public function setProducts(ArrayCollection $products): self
+    {
+        $this->products = $products;
+
+        return $this;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        $this->products[] = $product;
 
         return $this;
     }

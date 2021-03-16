@@ -10,13 +10,13 @@ use Doctrine\Persistence\ObjectManager;
 
 class CategoryFixtures extends Fixture
 {
-
     public function load(ObjectManager $manager)
     {
-        foreach ($this->getData() as $item)
-        {
-            $category = new Category();
-            $category->setCategoryName($item['categoryName']);
+        foreach ($this->getData() as $item) {
+            $category = new Category(
+                $item['categoryName'],
+                $item['description']
+            );
             $manager->persist($category);
         }
         $manager->flush();
@@ -26,13 +26,16 @@ class CategoryFixtures extends Fixture
     {
         return [
             [
-                'categoryName' => 'entertainment'
+                'categoryName' => 'entertainment',
+                'description' => 'simple description',
             ],
             [
-                'categoryName' => 'bills'
+                'categoryName' => 'bills',
+                'description' => 'simple description',
             ],
             [
-                'categoryName' => 'shopping'
+                'categoryName' => 'shopping',
+                'description' => null,
             ],
         ];
     }

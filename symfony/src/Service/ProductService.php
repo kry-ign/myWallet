@@ -14,6 +14,4 @@ class ProductService
     {
         $this->productRepository = $productRepository;
     }
-
 }
-
