@@ -21,7 +21,6 @@ class BudgetRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param User $user
      * @return Budget[] Returns an array of Budget objects
      */
     public function findAllByUser(User $user): array
@@ -34,17 +33,4 @@ class BudgetRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-
-
-    /*
-    public function findOneBySomeField($value): ?Budget
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -16,42 +16,45 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $categoryName;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", length=40, nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category", cascade={"persist", "remove"})
      */
     private $products;
 
-    public function __construct()
-    {
+    public function __construct(
+        string $name,
+        ?string $description
+    ) {
+        $this->name = $name;
+        $this->description = $description;
         $this->products = new ArrayCollection();
     }
 
-
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getCategoryName(): ?string
+    public function getName(): string
     {
-        return $this->categoryName;
+        return $this->name;
     }
 
-    public function setCategoryName(string $categoryName): self
+    public function setName(string $name): self
     {
-        $this->categoryName = $categoryName;
+        $this->name = $name;
 
         return $this;
     }
@@ -73,13 +76,17 @@ class Category
         return $this->products;
     }
 
-    public function setProducts(ArrayCollection $products): void
+    public function setProducts(ArrayCollection $products): self
     {
         $this->products = $products;
+
+        return $this;
     }
 
-    public function addProduct(Product $product): void
+    public function addProduct(Product $product): self
     {
         $this->products[] = $product;
+
+        return $this;
     }
 }

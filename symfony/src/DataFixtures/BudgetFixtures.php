@@ -28,9 +28,9 @@ class BudgetFixtures extends Fixture implements DependentFixtureInterface
 
         foreach ($this->getData() as $date) {
             $budget = BudgetFactory::create(
-                $faker->numberBetween(1,400000),
-                $this->userRepository->findOneBy([]),
-                new \DateTime($date)
+                $faker->numberBetween(1, 400000),
+                new \DateTime($date),
+                $this->userRepository->findOneBy([])
             );
             $manager->persist($budget);
         }
@@ -40,7 +40,7 @@ class BudgetFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-          UserFixtures::class
+          UserFixtures::class,
         ];
     }
 

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Home{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Month: {{ budget.month|date('F') }}</h1>
+        <h1> Left: {{ budget.leftValue }}</h1>
+
+        <div class="col-12 col-md-8">
+            <table class="table">
+                <thead>
+                <a class="nav-link" href="{{ path('budget_product.create', {'budgetId': budget.id}) }}">
+                    <button type="button" class="btn btn-success">Add new product</button>
+                </a>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Category</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                {% for product in products %}
+                    <tbody>
+                    <tr>
+                        <th>{{ product.id }}</th>
+                        <td>{{ product.productName }}</td>
+                        <td>{{ product.price }}</li></td>
+                        <td>{{ product.category.name }}</li></td>
+                        <td>
+                            <a href="{{ path('budget_product.edit',{'productId': product.id}) }}">
+                                <button type="button" class="btn btn-primary">Edit</button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('budget_product.delete',{'productId': product.id}) }}">
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

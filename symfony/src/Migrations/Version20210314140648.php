@@ -9,7 +9,7 @@ use Doctrine\Migrations\AbstractMigration;
 
 final class Version20210314140648 extends AbstractMigration
 {
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         $this->addSql('CREATE TABLE budget (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, value INT NOT NULL, month DATE NOT NULL, INDEX IDX_73F2F77BA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE category (id INT AUTO_INCREMENT NOT NULL, category_name VARCHAR(20) NOT NULL, description VARCHAR(40) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -22,7 +22,7 @@ final class Version20210314140648 extends AbstractMigration
         $this->addSql('ALTER TABLE user_product ADD CONSTRAINT FK_8B471AA74584665A FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE CASCADE');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04AD12469DE2');
         $this->addSql('ALTER TABLE user_product DROP FOREIGN KEY FK_8B471AA74584665A');
